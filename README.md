@@ -144,7 +144,7 @@ Toda a documentação detalhada está disponível na pasta [`docs/`](./docs/):
 
 ## 👨‍💻 Autor
 
-**Filippo Ferrari**
+**Pedro Lucas e Thiago**
 - Curso: Engenharia de Software - UnB
 - Trabalho: TCC1 (Trabalho de Conclusão de Curso)
 
