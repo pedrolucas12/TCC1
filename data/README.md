@@ -30,7 +30,43 @@ cd scripts/data/
 python download_sinan.py --start-year 20 --end-year 24
 ```
 
-### 2. Dados Climáticos (NASA POWER)
+### 2. Dados Climáticos - INMET (2025) ⭐ NOVO
+
+**Arquivos já baixados:** `C:\Users\pedro.santana\Downloads\2025\`
+
+```bash
+cd scripts/data/
+
+# Processar todos os arquivos INMET
+python process_inmet_bulk.py --input "C:/Users/pedro.santana/Downloads/2025" --output "../../data/processed/inmet"
+
+# Gerar análises e visualizações
+python analyze_inmet.py --data-dir "../../data/processed/inmet" --output-dir "../../data/processed/inmet/analises"
+```
+
+**O que isso faz:**
+- ✅ Processa 273 estações meteorológicas (DF, GO, MS, etc.)
+- ✅ Consolida dados horários em formato eficiente (Parquet)
+- ✅ **Agrega por semana epidemiológica** (crucial para dengue!)
+- ✅ **Cria lags temporais** (1, 2, 3, 4, 8, 12 semanas)
+- ✅ Identifica "janelas de risco" para surtos
+- ✅ Gera visualizações e estatísticas
+
+**Saídas:**
+```
+data/processed/inmet/
+├── inmet_consolidated_2025.parquet      # Dados horários
+├── inmet_weekly_2025.parquet            # Dados semanais
+├── inmet_weekly_lagged_2025.parquet     # Pronto para modelagem!
+├── inmet_metadata.csv                   # Metadados das estações
+└── analises/
+    ├── analise_precipitacao.png
+    ├── analise_temperatura.png
+    ├── analise_risco.png
+    └── semanas_risco_alto.csv
+```
+
+### 3. Dados Climáticos - NASA POWER (Alternativa)
 
 ```bash
 cd scripts/data/
