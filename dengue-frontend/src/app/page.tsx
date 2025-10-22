@@ -564,8 +564,9 @@ export default function Home() {
     setError(null);
     
     try {
+      // Usar proxy local para evitar problemas de CORS
       const response = await fetch(
-        `https://apidadosabertos.saude.gov.br/arboviroses/dengue?nu_ano=${year}&limit=20&offset=0`,
+        `/api/dengue?nu_ano=${year}&limit=20&offset=0`,
         {
           headers: {
             'accept': 'application/json'
@@ -574,13 +575,14 @@ export default function Home() {
       );
       
       if (!response.ok) {
-        throw new Error('Erro ao buscar dados da API');
+        throw new Error(`Erro ao buscar dados da API: ${response.status} ${response.statusText}`);
       }
       
       const result: ApiResponse = await response.json();
       setData(result.parametros);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Erro desconhecido');
+      console.error('Erro ao buscar dados:', err);
     } finally {
       setLoading(false);
     }

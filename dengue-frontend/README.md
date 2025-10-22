@@ -13,6 +13,9 @@ Este é um frontend Next.js para visualizar dados de dengue da API do governo br
 
 ## 🚀 Como usar
 
+### ✅ **SOLUÇÃO CORS IMPLEMENTADA**
+A aplicação agora usa um **proxy local** para contornar problemas de CORS com a API do governo.
+
 ### Opção 1: Execução Simples
 ```bash
 cd dengue-frontend
@@ -32,6 +35,11 @@ cd dengue-frontend
 npm run build
 npm start
 ```
+
+### 🔧 **Configuração do Proxy**
+- **Arquivo**: `next.config.js`
+- **Proxy**: `/api/dengue` → `https://apidadosabertos.saude.gov.br/arboviroses/dengue`
+- **Benefício**: Resolve problemas de CORS automaticamente
 
 ## 📊 Tradução COMPLETA Implementada
 
