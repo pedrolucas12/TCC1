@@ -1,0 +1,8 @@
+RESUMO ESTATÍSTICO DOS DADOS DE DENGUE - 2025
+==================================================
+Total de Casos: 1.502.259
+Período: 29/12/2024 a 05/07/2025
+UFs com Casos: 27
+Média de Idade: 4.026,05
+Casos Hospitalizados: 409.469
+Óbitos: 329

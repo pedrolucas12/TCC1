@@ -83,17 +83,12 @@ venv.bak/
 data/raw/
 data/raw/**/*
 
-# Processed data (pode ser grande)
-data/processed/
-data/processed/**/*
-
 # Temporary data
 data/temp/
 data/tmp/
 *.tmp
 
 # Large files
-*.csv
 *.parquet
 *.h5
 *.hdf5
