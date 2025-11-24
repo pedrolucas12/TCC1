@@ -4,7 +4,7 @@
 
 ### 1. MODELOS ESTATÍSTICOS (Baseline)
 
-#### 1.1. SARIMA
+#### 1.1. [SARIMA](SARIMA.md)
 - **Nome completo**: Seasonal Autoregressive Integrated Moving Average
 - **Biblioteca**: `statsmodels.tsa.statespace.sarimax.SARIMAX`
 - **Classe**: `SARIMAX`
