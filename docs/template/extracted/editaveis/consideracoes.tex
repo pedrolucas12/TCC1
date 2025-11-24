@@ -1,73 +1,33 @@
-\chapter[Considerações sobre os Elementos Textuais]{Considerações sobre os 
-Elementos Textuais}
+\chapter{Considerações Finais e Próximos Passos}
+\label{cap:consideracoes}
 
-\section{Introdução}
+\section{Conclusão Parcial}
 
-A regra mais rígida com respeito a Introdução é que a mesma, que é 
-necessariamente parte integrante do texto, não deverá fazer agradecimentos 
-a pessoas ou instituições nem comentários pessoais do autor atinentes à 
-escolha ou à relevância do tema.
+O presente trabalho atingiu seu objetivo inicial de construir uma base de dados sólida e unificada, integrando informações epidemiológicas e climáticas do Distrito Federal para o período crítico de 2022 a 2024.
 
-A Introdução obedece a critérios do Método Cientifico e a exigências 
-didáticas. Na Introdução o leitor deve ser colocado dentro do espírito do 
-trabalho.
+As análises realizadas permitiram concluir que:
+\begin{enumerate}
+    \item O surto de 2024 foi um evento estatístico extremo (\textit{outlier}), com uma magnitude 3 a 4 vezes superior aos anos anteriores, evidenciando a urgência de modelos preditivos mais robustos.
+    \item As variáveis climáticas não agem de forma imediata. A análise de \textit{lags} confirmou que a precipitação possui um "efeito gatilho" que se manifesta com maior intensidade nos casos de dengue cerca de 7 a 8 semanas depois.
+    \item A umidade relativa do ar mostrou-se o indicador ambiental mais correlacionado com a doença no DF, refletindo as características do bioma Cerrado.
+\end{enumerate}
 
-Cabe mencionar que a Introdução de um trabalho pode, pelo menos em parte, 
-ser escrita com grande vantagem uma vez concluído o trabalho (ou o 
-Desenvolvimento e as Conclusões terem sido redigidos). Não só a pesquisa 
-costuma modificar-se durante a execução, mas também, ao fim do trabalho, o 
-autor tem melhor perspectiva ou visão de conjunto.
+Esses achados validam a hipótese de pesquisa de que a integração de dados climáticos defasados é essencial para explicar a dinâmica da doença.
 
-Por seu caráter didático, a Introdução deve, ao seu primeiro parágrafo, 
-sugerir o mais claramente possível o que pretende o autor. Em seguida deve 
-procurar situar o problema a ser examinado em relação ao desenvolvimento 
-científico e técnico do momento. Assim sendo, sempre que pertinente, os 
-seguintes pontos devem ser abordados: 
+\section{Plano de Trabalho para o TCC 2}
+
+Com a base de dados consolidada e as variáveis explicativas (features) selecionadas, o TCC 2 focará exclusivamente na implementação e otimização dos modelos preditivos. As etapas previstas são:
 
 \begin{itemize}
-
-	\item Contextualização ou apresentação do tema em linhas gerais de 
-	forma clara e objetiva;
-	\item Apresentação da justificativa e/ou relevância do tema escolhido;
-	\item Apresentação da questão ou problema de pesquisa;
-	\item Declaração dos objetivos, gerais e específicos do trabalho;
-	\item Apresentação resumida da metodologia, e
-	\item Indicação de como o trabalho estará organizado.
-
+    \item \textbf{Engenharia de Atributos (Feature Engineering):} Criação explícita das variáveis de \textit{lag} (ex: `rain_lag_4`, `temp_lag_4`) no dataset de treinamento.
+    \item \textbf{Treinamento dos Modelos:}
+    \begin{itemize}
+        \item \textbf{SARIMA:} Ajuste fino dos parâmetros $(p,d,q)(P,D,Q)_s$ para capturar a sazonalidade.
+        \item \textbf{XGBoost:} Treinamento com foco em capturar as não-linearidades e interações entre variáveis climáticas.
+        \item \textbf{LSTM (Redes Neurais Recorrentes):} Implementação de arquitetura para aprendizado de sequências temporais longas.
+    \end{itemize}
+    \item \textbf{Avaliação Rigorosa:} Utilização de validação cruzada em janelas temporais (\textit{Time Series Cross-Validation}) para evitar vazamento de dados do futuro para o passado.
+    \item \textbf{Comparativo:} Definição do melhor modelo com base nas métricas RMSE (Raiz do Erro Quadrático Médio) e MAE (Erro Absoluto Médio).
 \end{itemize}
 
-\section{Desenvolvimento}
-
-O Desenvolvimento (Miolo ou Corpo do Trabalho) é subdividido em seções de 
-acordo com o planejamento do autor. As seções primárias são aquelas que 
-resultam da primeira divisão do texto do documento, geralmente 
-correspondendo a divisão em capítulos. Seções secundárias, terciárias, 
-etc., são aquelas que resultam da divisão do texto de uma seção primária, 
-secundária, terciária, etc., respectivamente.
-
-As seções primárias são numeradas consecutivamente, seguindo a série 
-natural de números inteiros, a partir de 1, pela ordem de sua sucessão no 
-documento.
-
-O Desenvolvimento é a seção mais importante do trabalho, por isso exigi-se 
-organização, objetividade e clareza. É conveniente dividi-lo em pelo menos 
-três partes:
-
-\begin{itemize}
-
-	\item Referencial teórico, que corresponde a uma análise dos trabalhos 
-	relevantes, encontrados na pesquisa bibliográfica sobre o assunto. 
-	\item Metodologia, que é a descrição de todos os passos metodológicos 
-	utilizados no trabalho. Sugere-se que se enfatize especialmente em (1) 
-	População ou Sujeitos da pesquisa, (2) Materiais e equipamentos 
-	utilizados e (3) Procedimentos de coleta de dados.
-	\item Resultados, Discussão dos resultados e Conclusões, que é onde se 
-	apresenta os dados encontrados a análise feita pelo autor à luz do 
-	Referencial teórico e as Conclusões.
-
-\end{itemize}
-
-\section{Uso de editores de texto}
-
-O uso de programas de edição eletrônica de textos é de livre escolha do autor. 
-
+Espera-se que o produto final seja um modelo capaz de emitir alertas antecipados com pelo menos 4 semanas de antecedência, auxiliando os gestores de saúde na tomada de decisão.

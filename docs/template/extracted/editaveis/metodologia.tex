@@ -1,0 +1,31 @@
+\chapter{Metodologia}
+\label{cap:metodologia}
+
+Este capítulo descreve os métodos estatísticos e computacionais empregados para analisar a relação entre o clima e a dengue, bem como a estratégia definida para a modelagem preditiva.
+
+\section{Análise Exploratória e Correlação}
+
+Antes da aplicação de modelos preditivos complexos, realizou-se uma análise exploratória profunda para compreender as características da série temporal unificada (2022-2024).
+
+\subsection{Correlação Cruzada e Defasagem (Lags)}
+Dado que o ciclo biológico do vetor \textit{Aedes aegypti} e o período de incubação do vírus não ocorrem instantaneamente, a simples correlação linear entre chuva hoje e casos hoje é insuficiente. Por isso, adotou-se a análise de correlação cruzada (\textit{Cross-Correlation Analysis}).
+
+Foram calculados os coeficientes de correlação de Pearson entre a variável alvo ($Y_t$: número de casos na semana $t$) e as variáveis preditoras defasadas ($X_{t-k}$), onde $k$ representa o \textit{lag} (atraso) em semanas, variando de $k=0$ a $k=8$.
+Isso permite responder perguntas como: \textit{"A chuva ocorrida há 4 semanas influencia mais os casos de hoje do que a chuva desta semana?"}
+
+\subsection{Teste de Causalidade de Granger}
+Para validar estatisticamente a precedência temporal, aplicou-se o teste de causalidade de Granger. O teste verifica se a inclusão de valores passados de uma variável climática (ex: Umidade) melhora significativamente a previsão dos casos de dengue, em comparação com o uso apenas dos valores passados da própria dengue.
+A hipótese nula ($H_0$) é de que a variável climática \textbf{não} Granger-causa a dengue. Um valor-p ($p < 0,05$) indica rejeição de $H_0$, sugerindo uma relação causal estatisticamente significativa.
+
+\section{Ferramentas e Tecnologias}
+
+Todo o desenvolvimento foi realizado em ambiente Python (versão 3.9+), utilizando as seguintes bibliotecas:
+
+\begin{itemize}
+    \item \textbf{Pandas \& NumPy:} Manipulação de dados estruturados e operações vetoriais.
+    \item \textbf{Statsmodels:} Implementação dos testes estatísticos (Granger) e decomposição de séries temporais (SARIMA).
+    \item \textbf{Seaborn \& Matplotlib:} Geração das visualizações e gráficos estatísticos.
+    \item \textbf{Scikit-learn (Planejado para TCC2):} Pré-processamento e métricas de avaliação para modelos de ML.
+\end{itemize}
+
+O código fonte do projeto foi versionado e organizado em módulos scripts para garantir a automação completa do fluxo de dados, desde a coleta bruta até a geração das figuras finais apresentadas neste documento.

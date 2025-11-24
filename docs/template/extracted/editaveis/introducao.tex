@@ -1,9 +1,44 @@
-\chapter*[Introdução]{Introdução}
-\addcontentsline{toc}{chapter}{Introdução}
+\chapter[Introdução]{Introdução}
+\label{cap:introducao}
 
-Este documento apresenta considerações gerais e preliminares relacionadas 
-à redação de relatórios de Projeto de Graduação da Faculdade UnB Gama 
-(FGA). São abordados os diferentes aspectos sobre a estrutura do trabalho, 
-uso de programas de auxilio a edição, tiragem de cópias, encadernação, etc.
+A dengue é uma arbovirose sistêmica de evolução benigna na maioria dos casos, mas que pode apresentar manifestações graves e letais. O agente etiológico é um vírus de RNA de fita simples e polaridade positiva (DENV), pertencente à família \textit{Flaviviridae} e ao gênero \textit{Flavivirus}, que possui quatro sorotipos antigenicamente distintos (DENV-1, DENV-2, DENV-3 e DENV-4). A transmissão ocorre pela picada de fêmeas infectadas de mosquitos do gênero \textit{Aedes}, sendo o \textit{Aedes aegypti} o vetor primário em áreas urbanas.
 
-Este template é uma adaptação do ABNTeX2\footnote{\url{https://github.com/abntex/abntex2/}}.
+\section{Contextualização e Importância do Trabalho}
+
+Nas últimas décadas, a doença consolidou-se como um dos mais críticos desafios de saúde pública global. No Brasil, o cenário epidemiológico é caracterizado pela hiperendemicidade. O Distrito Federal (DF), especificamente, tornou-se um cenário alarmante nos últimos anos.
+
+Dados consolidados para este trabalho mostram que, entre 2022 e 2024, o DF acumulou \textbf{463.560 casos notificados} de dengue. O ano de 2024, em particular, foi marcado por uma epidemia sem precedentes, registrando sozinho mais de 313 mil casos — um volume superior à soma dos dois anos anteriores. O pico dessa crise ocorreu em meados de fevereiro de 2024, chegando a contabilizar mais de 25 mil casos em uma única semana epidemiológica.
+
+A escolha do Distrito Federal como estudo de caso justifica-se, portanto, pela magnitude e explosividade desses surtos recentes, bem como pelas características climáticas específicas da região (Cerrado), onde a alternância entre seca extrema e chuvas intensas modula a dinâmica do vetor.
+
+\section{Definição do Problema}
+
+O problema central abordado é a dificuldade de prever, com precisão e horizonte temporal útil, a ocorrência de surtos explosivos como o de 2024. As abordagens tradicionais de vigilância baseiam-se frequentemente na detecção de casos já notificados, gerando um atraso (\textit{lag}) na resposta pública.
+
+A análise preliminar dos dados sugere que variáveis climáticas, como chuva e umidade, antecedem o aumento de casos em várias semanas. A tecnologia de Inteligência Artificial (IA), especificamente algoritmos de Aprendizado de Máquina (\textit{Machine Learning}) e Aprendizado Profundo (\textit{Deep Learning}), apresenta-se como uma solução promissora para capturar essas relações temporais complexas e não-lineares, permitindo antecipar picos de transmissão.
+
+\section{Pergunta de Pesquisa}
+
+Diante do exposto, este trabalho propõe-se a responder à seguinte pergunta de pesquisa:
+
+\begin{quote}
+\textit{Como a integração de dados climáticos exógenos (precipitação, temperatura, umidade) com a série temporal de casos de dengue no Distrito Federal, utilizando janelas temporais defasadas (\textit{lags}), pode aprimorar a capacidade de modelos de IA em antecipar surtos epidêmicos severos como o de 2024?}
+\end{quote}
+
+\section{Objetivos}
+
+\subsection{Objetivo Geral}
+
+Desenvolver e avaliar modelos preditivos baseados em Inteligência Artificial (SARIMA, XGBoost e LSTM) para a previsão de casos de dengue no Distrito Federal, utilizando uma base de dados unificada e atualizada do período de 2022 a 2024.
+
+\subsection{Objetivos Específicos}
+
+Para alcançar o objetivo geral, foram definidos os seguintes objetivos específicos:
+
+\begin{enumerate}
+    \item \textbf{Coletar e processar dados}: Construir um \textit{pipeline} automatizado para extração e integração de dados do SINAN (casos semanais no DF) e do INMET (estações meteorológicas) para o triênio 2022-2024.
+    \item \textbf{Analisar correlações temporais}: Quantificar a influência e a defasagem temporal (\textit{lag}) de variáveis climáticas na incidência da doença.
+    \item \textbf{Implementar modelos de referência}: Construir modelos estatísticos clássicos (SARIMA) para estabelecer uma linha de base.
+    \item \textbf{Desenvolver modelos de IA}: Implementar algoritmos de \textit{Machine Learning} (XGBoost) e \textit{Deep Learning} (LSTM) treinados com os dados históricos locais.
+    \item \textbf{Avaliar desempenhos}: Comparar a acurácia dos modelos na previsão dos picos epidêmicos, com foco especial na capacidade de generalização para o surto de 2024.
+\end{enumerate}

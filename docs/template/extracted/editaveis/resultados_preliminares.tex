@@ -1,0 +1,62 @@
+\chapter{Resultados Preliminares}
+\label{cap:resultados}
+
+Neste capítulo, apresentamos a análise detalhada dos dados consolidados de dengue e variáveis climáticas no Distrito Federal para o período de 2022 a 2024. A base de dados unificada compreende 156 semanas epidemiológicas contínuas, totalizando 463.560 casos notificados no período.
+
+\section{Análise Descritiva e Evolução Temporal}
+
+O período analisado revela uma discrepância significativa na magnitude dos casos entre os anos. Enquanto 2022 e 2023 registraram, respectivamente, 85.346 e 64.897 casos acumulados, o ano de 2024 apresentou um cenário epidêmico explosivo, com 313.317 casos — um aumento superior a 360\% em relação ao ano anterior.
+
+O pico da série histórica ocorreu na semana epidemiológica iniciada em 18 de fevereiro de 2024, registrando 25.714 casos em apenas sete dias. Nesse momento crítico, as condições meteorológicas eram propícias à proliferação do vetor: umidade relativa média de 86,4\%, temperatura média de 21,6°C e precipitação acumulada de 27,6 mm.
+
+A Figura \ref{fig:linha_tempo} ilustra essa evolução temporal, destacando a sazonalidade e a magnitude do surto de 2024.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{figuras/linha_temporal_casos_chuva.png}
+    \caption{Série temporal de casos de dengue e precipitação (2022-2024), evidenciando o pico epidêmico em 2024.}
+    \label{fig:linha_tempo}
+\end{figure}
+
+A análise sazonal (Figura \ref{fig:sazonal}) confirma que os meses de fevereiro e março representam a janela crítica de transmissão no DF, com médias mensais de casos semanais alcançando 9.273 e 7.799, respectivamente. O período de baixa transmissão ocorre consistentemente entre julho e outubro.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{figuras/tendencia_anual_sazonal.png}
+    \caption{Sazonalidade média: Casos por semana epidemiológica (pico concentrado nas semanas 07-12).}
+    \label{fig:sazonal}
+\end{figure}
+
+\section{Correlações e Defasagem Temporal (Lags)}
+
+A análise de correlação de Pearson revelou que a **Umidade Relativa Média** é a variável climática com maior correlação linear imediata com o número de casos ($r = 0,37$). A temperatura média e a chuva apresentaram correlações imediatas mais fracas ($r = 0,11$ e $r = 0,09$, respectivamente). Curiosamente, a velocidade do vento apresentou uma correlação negativa moderada ($r = -0,22$), sugerindo que ventos mais fortes podem dificultar a dispersão ou atividade de voo do mosquito \textit{Aedes aegypti}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figuras/heatmap_correlacao.png}
+    \caption{Matriz de correlação de Pearson entre variáveis climáticas e casos de dengue.}
+    \label{fig:heatmap}
+\end{figure}
+
+\subsection{O Efeito do Tempo (Lags)}
+
+Um achado fundamental desta análise é a importância da defasagem temporal (\textit{lag}). Embora a correlação imediata da chuva seja baixa, a análise de correlação cruzada demonstrou que o impacto da precipitação nos casos de dengue é crescente ao longo do tempo, atingindo seu pico cerca de 7 a 8 semanas após o evento chuvoso.
+
+\begin{itemize}
+    \item \textbf{Lag 0 (Semana atual):} Correlação Chuva x Casos = 0,09
+    \item \textbf{Lag 4 (1 mês depois):} Correlação Chuva x Casos = 0,25
+    \item \textbf{Lag 7 (quase 2 meses):} Correlação Chuva x Casos = 0,27
+\end{itemize}
+
+Esse comportamento é biologicamente consistente com o ciclo de vida do vetor (eclosão dos ovos, desenvolvimento larvário) e o período de incubação viral extrínseco, reforçando a necessidade de utilizar variáveis defasadas nos modelos preditivos.
+
+\section{Distribuição das Variáveis Climáticas}
+
+As condições ambientais do Distrito Federal durante o período de estudo variaram consideravelmente, como mostra o boxplot abaixo. A temperatura média manteve-se amena (mediana $\approx 21,6$°C), mas a umidade apresentou grande amplitude, variando de médias semanais desérticas ($\approx 26\%$) a saturadas ($\approx 88\%$), característica típica do Cerrado que influencia diretamente a sobrevivência do vetor.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{figuras/boxplot_climatico.png}
+    \caption{Distribuição das variáveis climáticas (2022-2024).}
+    \label{fig:boxplot}
+\end{figure}
