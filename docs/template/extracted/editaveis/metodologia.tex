@@ -1,31 +1,54 @@
 \chapter{Metodologia}
 \label{cap:metodologia}
 
-Este capítulo descreve os métodos estatísticos e computacionais empregados para analisar a relação entre o clima e a dengue, bem como a estratégia definida para a modelagem preditiva.
+Este capítulo descreve detalhadamente o fluxo metodológico adotado, desde a engenharia de dados até a estratégia de análise estatística, garantindo a reprodutibilidade científica do estudo. A abordagem metodológica é quantitativa, descritiva e analítica, baseada em dados secundários de domínio público.
 
-\section{Análise Exploratória e Correlação}
+\section{Pipeline de Engenharia de Dados}
 
-Antes da aplicação de modelos preditivos complexos, realizou-se uma análise exploratória profunda para compreender as características da série temporal unificada (2022-2024).
+Dada a heterogeneidade das fontes de dados (SINAN e INMET), foi necessário desenvolver um \textit{pipeline} computacional robusto em linguagem Python para a extração, transformação e carga (ETL) das informações.
 
-\subsection{Correlação Cruzada e Defasagem (Lags)}
-Dado que o ciclo biológico do vetor \textit{Aedes aegypti} e o período de incubação do vírus não ocorrem instantaneamente, a simples correlação linear entre chuva hoje e casos hoje é insuficiente. Por isso, adotou-se a análise de correlação cruzada (\textit{Cross-Correlation Analysis}).
-
-Foram calculados os coeficientes de correlação de Pearson entre a variável alvo ($Y_t$: número de casos na semana $t$) e as variáveis preditoras defasadas ($X_{t-k}$), onde $k$ representa o \textit{lag} (atraso) em semanas, variando de $k=0$ a $k=8$.
-Isso permite responder perguntas como: \textit{"A chuva ocorrida há 4 semanas influencia mais os casos de hoje do que a chuva desta semana?"}
-
-\subsection{Teste de Causalidade de Granger}
-Para validar estatisticamente a precedência temporal, aplicou-se o teste de causalidade de Granger. O teste verifica se a inclusão de valores passados de uma variável climática (ex: Umidade) melhora significativamente a previsão dos casos de dengue, em comparação com o uso apenas dos valores passados da própria dengue.
-A hipótese nula ($H_0$) é de que a variável climática \textbf{não} Granger-causa a dengue. Um valor-p ($p < 0,05$) indica rejeição de $H_0$, sugerindo uma relação causal estatisticamente significativa.
-
-\section{Ferramentas e Tecnologias}
-
-Todo o desenvolvimento foi realizado em ambiente Python (versão 3.9+), utilizando as seguintes bibliotecas:
-
+\subsection{1. Coleta e Padronização}
+Os dados foram coletados de forma automatizada. Para os dados do INMET, que originalmente apresentam frequência horária ou diária, foi aplicado um processo de agregação temporal para compatibilizá-los com a granularidade semanal dos dados epidemiológicos.
 \begin{itemize}
-    \item \textbf{Pandas \& NumPy:} Manipulação de dados estruturados e operações vetoriais.
-    \item \textbf{Statsmodels:} Implementação dos testes estatísticos (Granger) e decomposição de séries temporais (SARIMA).
-    \item \textbf{Seaborn \& Matplotlib:} Geração das visualizações e gráficos estatísticos.
-    \item \textbf{Scikit-learn (Planejado para TCC2):} Pré-processamento e métricas de avaliação para modelos de ML.
+    \item Para a variável \textbf{Precipitação}, utilizou-se a soma acumulada da semana.
+    \item Para as variáveis de \textbf{Temperatura, Umidade e Pressão}, utilizou-se a média aritmética das observações diárias.
+    \item As datas foram padronizadas para o formato ISO 8601 (YYYY-MM-DD) e alinhadas pela data de início da Semana Epidemiológica (SE), que convencionalmente se inicia aos domingos.
 \end{itemize}
 
-O código fonte do projeto foi versionado e organizado em módulos scripts para garantir a automação completa do fluxo de dados, desde a coleta bruta até a geração das figuras finais apresentadas neste documento.
+\subsection{2. Tratamento e Unificação}
+Foi realizada uma inspeção de qualidade dos dados para identificar valores espúrios (\textit{outliers} impossíveis, ex: temperatura de 200°C) ou dados faltantes (\textit{missing values}). Pequenas lacunas nas séries climáticas foram preenchidas utilizando interpolação linear, um método adequado para variáveis físicas contínuas. Em seguida, os \textit{datasets} de clima e saúde foram unificados (\textit{merged}) em uma única estrutura tabular, resultando em uma série temporal multivariada com 156 observações semanais.
+
+\section{Análise Estatística Exploratória}
+
+Antes da modelagem, realizou-se uma investigação profunda da estrutura de correlação dos dados para fundamentar a seleção de atributos (\textit{Feature Selection}).
+
+\subsection{Correlação e Defasagem Temporal (Lags)}
+A relação entre clima e dengue não é instantânea. O ciclo biológico impõe um atraso natural. Para capturar esse fenômeno, utilizou-se a Função de Correlação Cruzada (\textit{Cross-Correlation Function} - CCF).
+Calculou-se a correlação de Pearson entre a série de casos ($Y_t$) e as séries climáticas defasadas ($X_{t-k}$) para $k = 0, 1, ..., 8$ semanas.
+\[
+r_k = \frac{\sum_{t=k+1}^T (y_t - \bar{y})(x_{t-k} - \bar{x})}{\sqrt{\sum_{t=1}^T (y_t - \bar{y})^2} \sqrt{\sum_{t=1}^T (x_t - \bar{x})^2}}
+\]
+Esse procedimento permite identificar, por exemplo, se a chuva de 2 meses atrás tem maior poder preditivo sobre os casos atuais do que a chuva da semana corrente.
+
+\subsection{Teste de Causalidade de Granger}
+Para ir além da simples correlação e investigar a precedência temporal estatística, aplicou-se o Teste de Causalidade de Granger. O teste avalia se a inclusão de valores passados de uma variável $X$ (Clima) reduz significativamente o erro de previsão da variável $Y$ (Casos), em comparação com um modelo que usa apenas os valores passados de $Y$.
+A verificação foi feita para defasagens de 1 a 4 semanas, considerando um nível de significância de 5\% ($p < 0,05$).
+
+\section{Planejamento da Modelagem Preditiva (TCC 2)}
+
+A fase de construção dos modelos preditivos, a ser executada na etapa seguinte da pesquisa (TCC 2), seguirá uma abordagem experimental rigorosa.
+
+\subsection{Algoritmos Selecionados}
+\begin{enumerate}
+    \item \textbf{SARIMA:} Será implementado utilizando a biblioteca \texttt{statsmodels}, com seleção automática de hiperparâmetros ($p,d,q$) e ($P,D,Q$) baseada no critério de informação de Akaike (AIC).
+    \item \textbf{XGBoost:} Será implementado via biblioteca \texttt{xgboost}, com otimização de hiperparâmetros (taxa de aprendizado, profundidade da árvore) via \textit{Grid Search}.
+    \item \textbf{LSTM:} Será construída com \texttt{TensorFlow/Keras}, testando arquiteturas com camadas de \textit{Dropout} para evitar \textit{overfitting} e camadas densas para a regressão final.
+\end{enumerate}
+
+\subsection{Estratégia de Validação e Métricas}
+Dada a natureza temporal dos dados, a validação tradicional (separação aleatória treino/teste) é inadequada, pois violaria a ordem cronológica ("olhar para o futuro"). Será utilizada a validação \textbf{Walk-Forward} ou \textbf{Time Series Cross-Validation}.
+O desempenho será mensurado pelas métricas:
+\begin{itemize}
+    \item \textbf{RMSE (Root Mean Squared Error):} Penaliza erros grandes, útil para prever picos.
+    \item \textbf{MAE (Mean Absolute Error):} Mede o erro médio absoluto, de fácil interpretação.
+\end{itemize}

@@ -1,42 +1,68 @@
-\chapter{Aspectos Gerais}
+\chapter{Revisão Bibliográfica e Fundamentação Teórica}
+\label{cap:revisao}
 
-\section{Bases de Dados}
+Este capítulo apresenta a fundamentação teórica necessária para a compreensão do problema abordado, discutindo a epidemiologia da dengue, o impacto socioeconômico da doença e o estado da arte das tecnologias de previsão baseadas em Inteligência Artificial. Além disso, detalha-se a estrutura das bases de dados reais utilizadas neste estudo.
 
-Para a realização deste estudo, foi construída uma base de dados unificada cobrindo integralmente as semanas epidemiológicas dos anos de 2022, 2023 e 2024. A série temporal resultante contém 156 semanas de observações contínuas, sem lacunas temporais, permitindo uma análise robusta da dinâmica da doença no Distrito Federal.
+\section{A Dengue: Epidemiologia e Dinâmica de Transmissão}
+
+A dengue é, atualmente, a arbovirose mais importante do mundo em termos de morbidade e mortalidade humana. O vírus (DENV) possui quatro sorotipos distintos (DENV-1, DENV-2, DENV-3 e DENV-4). A co-circulação desses sorotipos em uma mesma região é um fator de risco crítico, pois a infecção prévia por um sorotipo pode, em alguns casos, exacerbar a resposta imune em uma infecção secundária por um sorotipo diferente, levando a quadros de Dengue Grave (anteriormente denominada Dengue Hemorrágica).
+
+A dinâmica de transmissão da doença é complexa e fortemente influenciada por fatores ambientais e sociais. O vetor \textit{Aedes aegypti} é um mosquito altamente adaptado ao ambiente urbano e peridomiciliar. Seu ciclo de vida compreende quatro fases: ovo, larva, pupa e adulto. As fases imaturas ocorrem necessariamente na água, enquanto a fase adulta é aérea.
+\begin{itemize}
+    \item \textbf{Influência da Chuva:} A precipitação é fundamental para a criação e manutenção de criadouros larvários (pneus, vasos, caixas d'água destampadas), aumentando a densidade vetorial.
+    \item \textbf{Influência da Temperatura:} Temperaturas mais elevadas aceleram o metabolismo do mosquito, encurtando o tempo de desenvolvimento larvário e o período de incubação extrínseco do vírus dentro do vetor, o que aumenta a frequência de repasto sanguíneo e a taxa de transmissão.
+\end{itemize}
+
+\subsection{Impacto Social e Econômico}
+
+O impacto da dengue transcende a esfera clínica individual, gerando um fardo pesado para a sociedade e para a economia. Epidemias de grande magnitude, como a observada no Distrito Federal em 2024, provocam:
+\begin{itemize}
+    \item \textbf{Sobrecarga do Sistema de Saúde:} A procura massiva por atendimento ambulatorial e internação esgota rapidamente os recursos hospitalares, leitos e insumos, prejudicando o atendimento a outras patologias.
+    \item \textbf{Absenteísmo e Perda de Produtividade:} A doença afeta predominantemente a população economicamente ativa, gerando dias perdidos de trabalho e estudo, com impacto direto no PIB local.
+    \item \textbf{Custos Diretos e Indiretos:} Os custos envolvem desde o tratamento dos pacientes e campanhas de controle vetorial até os custos previdenciários e a perda de qualidade de vida da população.
+\end{itemize}
+
+\section{Estado da Arte em Previsão Epidemiológica}
+
+A capacidade de antecipar surtos de doenças infecciosas tem sido uma prioridade de pesquisa global. A evolução das técnicas de previsão pode ser dividida em abordagens clássicas e abordagens modernas baseadas em dados (\textit{Data-Driven}).
+
+\subsection{Modelagem Estatística Clássica (SARIMA)}
+O modelo SARIMA (\textit{Seasonal AutoRegressive Integrated Moving Average}) é uma extensão do modelo ARIMA que suporta explicitamente a sazonalidade univariada. Ele é amplamente utilizado como \textit{baseline} em estudos epidemiológicos devido à sua robustez teórica e capacidade de modelar tendências lineares e ciclos sazonais.
+No entanto, sua principal limitação é a dificuldade em incorporar múltiplas variáveis exógenas (covariáveis climáticas) de maneira não-linear. O SARIMA assume que as relações passadas se repetem linearmente no futuro, o que pode ser insuficiente para prever surtos explosivos causados por anomalias climáticas complexas.
+
+\subsection{Machine Learning e Algoritmos de Boosting (XGBoost)}
+O \textit{Extreme Gradient Boosting} (XGBoost) representa o estado da arte em algoritmos baseados em árvores de decisão. Diferente dos modelos lineares, o XGBoost constrói um conjunto (\textit{ensemble}) de modelos fracos (árvores de decisão) de forma sequencial, onde cada novo modelo tenta corrigir os erros dos anteriores.
+\textbf{Vantagens para o problema:}
+\begin{itemize}
+    \item Capacidade de capturar interações não-lineares complexas entre variáveis (ex: a chuva só aumenta a dengue se a temperatura estiver acima de um certo limiar).
+    \item Robustez a dados faltantes (\textit{missing values}) e \textit{outliers}.
+    \item Importância de Atributos (\textit{Feature Importance}): Permite identificar quais variáveis climáticas são mais relevantes para a previsão.
+\end{itemize}
+
+\subsection{Deep Learning e Redes Neurais Recorrentes (LSTM)}
+As redes LSTM (\textit{Long Short-Term Memory}) são uma arquitetura especial de Redes Neurais Recorrentes (RNN) projetadas para superar o problema de "esquecimento" de dependências longas. Em séries temporais epidemiológicas, eventos ocorridos há vários meses (ex: um verão muito chuvoso) podem influenciar o tamanho da população de mosquitos meses depois. As células de memória da LSTM conseguem reter essa informação relevante por longos períodos, tornando-as ideais para modelar os efeitos defasados (\textit{lags}) do clima sobre a doença.
+
+\section{Caracterização das Bases de Dados Reais}
+
+Para garantir a validade ecológica e a aplicabilidade prática deste estudo, foram utilizados exclusivamente dados reais e oficiais referentes ao Distrito Federal.
 
 \subsection{Dados Epidemiológicos (SINAN/InfoDengue)}
-Os dados de casos de dengue foram obtidos através da API pública do projeto InfoDengue, que cura e disponibiliza dados do Sistema de Informação de Agravos de Notificação (SINAN).
+Os dados de notificação de dengue foram obtidos através da API do projeto InfoDengue, que cura e padroniza os dados do Sistema de Informação de Agravos de Notificação (SINAN) do Ministério da Saúde.
 \begin{itemize}
-    \item \textbf{Fonte:} InfoDengue (API v1).
-    \item \textbf{Localidade:} Município de Brasília (Geocódigo IBGE: 5300108).
-    \item \textbf{Período:} Semana Epidemiológica 01 de 2022 até a Semana 52 de 2024.
-    \item \textbf{Variáveis principais:} Casos notificados (confirmados + suspeitos), incidência por 100 mil habitantes e data de início da semana epidemiológica.
+    \item \textbf{Abrangência Temporal:} Semanas epidemiológicas de 2022 a 2024 (156 semanas contínuas).
+    \item \textbf{Abrangência Espacial:} Município de Brasília (Geocódigo IBGE: 5300108).
+    \item \textbf{Natureza do Dado:} Casos prováveis (soma de casos confirmados e suspeitos), refletindo a carga real sobre o sistema de saúde.
 \end{itemize}
 
 \subsection{Dados Meteorológicos (INMET)}
-Os dados climáticos foram extraídos dos registros históricos do Instituto Nacional de Meteorologia (INMET).
+As variáveis climáticas foram extraídas do Banco de Dados Meteorológicos para Ensino e Pesquisa (BDMEP) do Instituto Nacional de Meteorologia (INMET).
 \begin{itemize}
-    \item \textbf{Fonte:} Estação Meteorológica Automática de Brasília (Código: A001).
-    \item \textbf{Localização:} Latitude -15.789, Longitude -47.925, Altitude 1161m.
-    \item \textbf{Processamento:} Os dados originais, coletados em frequência horária/diária, foram agregados semanalmente para pareamento com os dados epidemiológicos.
-    \item \textbf{Variáveis utilizadas:}
-    \begin{itemize}
-        \item \textbf{Precipitação (mm):} Acumulado total da semana.
-        \item \textbf{Temperatura (°C):} Média, mínima e máxima da semana.
-        \item \textbf{Umidade Relativa (\%):} Média semanal.
-        \item \textbf{Pressão Atmosférica e Vento:} Médias semanais.
-    \end{itemize}
+    \item \textbf{Fonte:} Estação Meteorológica Automática de Brasília (A001).
+    \item \textbf{Variáveis Processadas:}
+    \begin{enumerate}
+        \item \textbf{Precipitação (Chuva):} Acumulado semanal (mm). Variável crítica para formação de criadouros.
+        \item \textbf{Temperatura Média, Mínima e Máxima:} Médias semanais (°C). Variável crítica para a velocidade do ciclo viral.
+        \item \textbf{Umidade Relativa do Ar:} Média semanal (%). Variável crítica para a sobrevivência do mosquito adulto (em ambientes secos, o mosquito desidrata e morre mais rápido).
+        \item \textbf{Pressão Atmosférica:} Média semanal.
+    \end{enumerate}
 \end{itemize}
-
-\section{Metodologia de Coleta e Processamento}
-
-A coleta foi totalmente automatizada por meio de scripts desenvolvidos em linguagem Python, garantindo a reprodutibilidade e a fácil atualização dos dados. O \textit{pipeline} de dados consistiu nas seguintes etapas:
-
-\begin{enumerate}
-    \item \textbf{Requisição e Download:} Scripts específicos consultaram a API do InfoDengue e processaram os arquivos brutos (CSV) do INMET.
-    \item \textbf{Limpeza e Tratamento:} Remoção de colunas irrelevantes, tratamento de valores nulos através de interpolação linear (para pequenas falhas em dados climáticos) e padronização de datas.
-    \item \textbf{Agregação Temporal:} Conversão rigorosa dos dados climáticos diários para o padrão de Semanas Epidemiológicas (SE), utilizando a data de início da semana (domingo) como chave de agrupamento.
-    \item \textbf{Fusão (Merge):} Unificação dos dois \textit{dataframes} em um único arquivo \textit{parquet/csv} final (`merged\_weekly`), contendo todas as variáveis alinhadas temporalmente.
-\end{enumerate}
-
-Esse processo resultou em um conjunto de dados estruturado, pronto para as análises estatísticas e o treinamento dos modelos de Inteligência Artificial.

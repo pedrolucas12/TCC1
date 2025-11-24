@@ -1,44 +1,54 @@
 \chapter[Introdução]{Introdução}
 \label{cap:introducao}
 
-A dengue é uma arbovirose sistêmica de evolução benigna na maioria dos casos, mas que pode apresentar manifestações graves e letais. O agente etiológico é um vírus de RNA de fita simples e polaridade positiva (DENV), pertencente à família \textit{Flaviviridae} e ao gênero \textit{Flavivirus}, que possui quatro sorotipos antigenicamente distintos (DENV-1, DENV-2, DENV-3 e DENV-4). A transmissão ocorre pela picada de fêmeas infectadas de mosquitos do gênero \textit{Aedes}, sendo o \textit{Aedes aegypti} o vetor primário em áreas urbanas.
+A dengue é uma doença viral sistêmica de evolução benigna na maioria dos casos, mas que pode apresentar manifestações graves, incluindo a síndrome do choque da dengue e óbito. O agente etiológico é um vírus de RNA de fita simples e polaridade positiva (DENV), pertencente à família \textit{Flaviviridae} e ao gênero \textit{Flavivirus}. Existem quatro sorotipos antigenicamente distintos (DENV-1, DENV-2, DENV-3 e DENV-4), e a infecção por um deles confere imunidade permanente apenas para aquele sorotipo específico, havendo a possibilidade de infecções subsequentes pelos demais, o que aumenta o risco de formas graves da doença.
 
-\section{Contextualização e Importância do Trabalho}
+A transmissão ocorre primordialmente pela picada de fêmeas infectadas de mosquitos do gênero \textit{Aedes}, sendo o \textit{Aedes aegypti} o vetor primário em áreas urbanas. A biologia do vetor é intrinsecamente ligada às condições ambientais: a temperatura influencia a velocidade de reprodução e o período de incubação viral, enquanto a chuva fornece os criadouros aquáticos essenciais para a fase larvária.
 
-Nas últimas décadas, a doença consolidou-se como um dos mais críticos desafios de saúde pública global. No Brasil, o cenário epidemiológico é caracterizado pela hiperendemicidade. O Distrito Federal (DF), especificamente, tornou-se um cenário alarmante nos últimos anos.
+\section{Contextualização e Motivação}
 
-Dados consolidados para este trabalho mostram que, entre 2022 e 2024, o DF acumulou \textbf{463.560 casos notificados} de dengue. O ano de 2024, em particular, foi marcado por uma epidemia sem precedentes, registrando sozinho mais de 313 mil casos — um volume superior à soma dos dois anos anteriores. O pico dessa crise ocorreu em meados de fevereiro de 2024, chegando a contabilizar mais de 25 mil casos em uma única semana epidemiológica.
+Nas últimas décadas, a dengue consolidou-se como um dos mais críticos desafios de saúde pública global, especialmente em regiões tropicais e subtropicais. A urbanização desordenada, as mudanças climáticas e a mobilidade humana global têm facilitado a expansão da área de atuação do vetor.
 
-A escolha do Distrito Federal como estudo de caso justifica-se, portanto, pela magnitude e explosividade desses surtos recentes, bem como pelas características climáticas específicas da região (Cerrado), onde a alternância entre seca extrema e chuvas intensas modula a dinâmica do vetor.
+No Brasil, o cenário epidemiológico é caracterizado pela hiperendemicidade, com ciclos epidêmicos recorrentes. O Distrito Federal (DF), foco deste estudo, tornou-se um cenário alarmante e emblemático dessa crise sanitária nos últimos anos. Localizado no bioma Cerrado, o DF apresenta um regime pluviométrico bem definido, alternando entre uma estação seca e uma chuvosa, o que modula sazonalmente a dinâmica da transmissão.
 
-\section{Definição do Problema}
+A motivação para este trabalho nasce da observação dos dados alarmantes recentes. Dados consolidados e processados para esta pesquisa revelam que, no triênio compreendido entre 2022 e 2024, o Distrito Federal acumulou um total de \textbf{463.560 casos notificados} de dengue.
 
-O problema central abordado é a dificuldade de prever, com precisão e horizonte temporal útil, a ocorrência de surtos explosivos como o de 2024. As abordagens tradicionais de vigilância baseiam-se frequentemente na detecção de casos já notificados, gerando um atraso (\textit{lag}) na resposta pública.
+O ano de 2024, em particular, representou um ponto de inflexão histórica. Diferente dos anos anteriores, que seguiram padrões sazonais esperados (2022 com 85.346 casos e 2023 com 64.897 casos), 2024 registrou uma epidemia explosiva e sem precedentes, totalizando \textbf{313.317 casos} notificados. Esse volume representa um aumento superior a 360\% em relação ao ano anterior e supera a soma de toda a série histórica recente. O pico dessa crise ocorreu na semana epidemiológica iniciada em 18 de fevereiro de 2024, quando o sistema de saúde registrou mais de 25 mil casos em apenas sete dias.
 
-A análise preliminar dos dados sugere que variáveis climáticas, como chuva e umidade, antecedem o aumento de casos em várias semanas. A tecnologia de Inteligência Artificial (IA), especificamente algoritmos de Aprendizado de Máquina (\textit{Machine Learning}) e Aprendizado Profundo (\textit{Deep Learning}), apresenta-se como uma solução promissora para capturar essas relações temporais complexas e não-lineares, permitindo antecipar picos de transmissão.
+Esse cenário de colapso, com superlotação de hospitais e esgotamento de recursos, evidencia a incapacidade dos métodos tradicionais de vigilância em prever, com a antecedência necessária, a magnitude de tais eventos extremos. A reatividade do sistema de saúde, que muitas vezes atua apenas após a detecção do aumento de casos, resulta em uma resposta tardia e menos eficaz.
+
+\section{Relevância da Tecnologia}
+
+A complexidade da dinâmica de transmissão da dengue reside na sua natureza multifatorial e não-linear. Fatores climáticos como precipitação, temperatura, umidade relativa do ar e pressão atmosférica interagem de forma complexa para criar as condições ideais para a proliferação do mosquito. Além disso, existe um fenômeno crucial conhecido como "defasagem temporal" ou \textit{lag}: a chuva que ocorre hoje não resulta em mosquitos adultos imediatamente, mas sim semanas depois, após o ciclo de eclosão dos ovos e desenvolvimento das larvas.
+
+Os métodos estatísticos clássicos muitas vezes falham em capturar essas nuances não-lineares e as interações complexas entre múltiplas variáveis exógenas. É nesse contexto que a tecnologia de Inteligência Artificial (IA) se torna uma ferramenta indispensável.
+
+Algoritmos de Aprendizado de Máquina (\textit{Machine Learning}), como o \textit{Gradient Boosting} (XGBoost), e de Aprendizado Profundo (\textit{Deep Learning}), como as Redes Neurais Recorrentes (LSTM - \textit{Long Short-Term Memory}), possuem a capacidade intrínseca de modelar dependências temporais de longo prazo e identificar padrões sutis em grandes volumes de dados (\textit{Big Data}). A aplicação dessas tecnologias permite transformar dados brutos climáticos e epidemiológicos em inteligência preditiva acionável, oferecendo aos gestores públicos uma janela de oportunidade ("horizonte de previsão") para atuar preventivamente antes que o surto atinja seu pico.
 
 \section{Pergunta de Pesquisa}
 
-Diante do exposto, este trabalho propõe-se a responder à seguinte pergunta de pesquisa:
+Considerando a gravidade do cenário epidemiológico no Distrito Federal e o potencial inexplorado das variáveis ambientais como preditores antecipados, este trabalho propõe-se a responder à seguinte questão central:
 
 \begin{quote}
-\textit{Como a integração de dados climáticos exógenos (precipitação, temperatura, umidade) com a série temporal de casos de dengue no Distrito Federal, utilizando janelas temporais defasadas (\textit{lags}), pode aprimorar a capacidade de modelos de IA em antecipar surtos epidêmicos severos como o de 2024?}
+\textit{Como a integração de dados climáticos exógenos (precipitação, temperatura, umidade, pressão) com a série temporal histórica de casos de dengue no Distrito Federal, utilizando janelas temporais defasadas (\textit{lags}) otimizadas, pode aprimorar a capacidade de modelos de Inteligência Artificial em antecipar e dimensionar surtos epidêmicos severos, como o evento extremo observado em 2024?}
 \end{quote}
 
 \section{Objetivos}
 
 \subsection{Objetivo Geral}
 
-Desenvolver e avaliar modelos preditivos baseados em Inteligência Artificial (SARIMA, XGBoost e LSTM) para a previsão de casos de dengue no Distrito Federal, utilizando uma base de dados unificada e atualizada do período de 2022 a 2024.
+Desenvolver, treinar e avaliar modelos preditivos baseados em Inteligência Artificial (SARIMA, XGBoost e LSTM) para a previsão semanal de casos de dengue no Distrito Federal, utilizando uma base de dados unificada, tratada e enriquecida com variáveis climáticas do período de 2022 a 2024, visando fornecer uma ferramenta de alerta antecipado para a saúde pública.
 
 \subsection{Objetivos Específicos}
 
-Para alcançar o objetivo geral, foram definidos os seguintes objetivos específicos:
+Para alcançar o objetivo geral, foram definidos os seguintes objetivos específicos, que compõem a metodologia deste trabalho:
 
 \begin{enumerate}
-    \item \textbf{Coletar e processar dados}: Construir um \textit{pipeline} automatizado para extração e integração de dados do SINAN (casos semanais no DF) e do INMET (estações meteorológicas) para o triênio 2022-2024.
-    \item \textbf{Analisar correlações temporais}: Quantificar a influência e a defasagem temporal (\textit{lag}) de variáveis climáticas na incidência da doença.
-    \item \textbf{Implementar modelos de referência}: Construir modelos estatísticos clássicos (SARIMA) para estabelecer uma linha de base.
-    \item \textbf{Desenvolver modelos de IA}: Implementar algoritmos de \textit{Machine Learning} (XGBoost) e \textit{Deep Learning} (LSTM) treinados com os dados históricos locais.
-    \item \textbf{Avaliar desempenhos}: Comparar a acurácia dos modelos na previsão dos picos epidêmicos, com foco especial na capacidade de generalização para o surto de 2024.
+    \item \textbf{Coleta e Integração de Dados:} Construir um \textit{pipeline} computacional automatizado para a extração, limpeza e unificação de dados epidemiológicos (do Sistema de Informação de Agravos de Notificação - SINAN) e dados meteorológicos (do Instituto Nacional de Meteorologia - INMET) referentes ao Distrito Federal no período de 2022 a 2024.
+    
+    \item \textbf{Análise Exploratória e de Correlação:} Realizar uma análise estatística profunda para quantificar a influência das variáveis climáticas sobre a incidência de dengue, identificando através de correlação cruzada (\textit{Cross-Correlation}) e testes de causalidade de Granger quais são os tempos de defasagem (\textit{lags}) mais significativos para cada variável ambiental.
+    
+    \item \textbf{Desenvolvimento de Modelos (Planejamento TCC 2):} Implementar e otimizar algoritmos de previsão de séries temporais, comparando uma abordagem estatística clássica (SARIMA) com abordagens de Machine Learning baseadas em árvores (XGBoost) e Redes Neurais Profundas (LSTM).
+    
+    \item \textbf{Avaliação de Desempenho (Planejamento TCC 2):} Validar os modelos utilizando a técnica de validação cruzada em janela deslizante (\textit{Time Series Cross-Validation}) e métricas robustas de erro (RMSE, MAE), com foco específico na capacidade dos modelos de generalizar e prever o pico epidêmico extremo de 2024.
 \end{enumerate}

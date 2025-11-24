@@ -1,0 +1,107 @@
+\chapter{Cronograma de Execução}
+\label{cap:cronograma}
+
+Este capítulo apresenta o planejamento temporal detalhado das atividades do TCC 1 e do TCC 2, organizadas por etapas e com estimativa de duração em semanas.
+
+\section{Atividades do TCC 1}
+
+O TCC 1 foi dedicado à construção da base de dados e à análise exploratória preliminar. As atividades já executadas e suas durações estimadas foram:
+
+\begin{enumerate}
+    \item \textbf{Revisão Bibliográfica e Fundamentação Teórica} (4 semanas)
+    \begin{itemize}
+        \item Pesquisa sobre epidemiologia da dengue e dinâmica de transmissão.
+        \item Revisão do estado da arte em modelos preditivos para saúde pública.
+        \item Estudo das tecnologias de Machine Learning e Deep Learning aplicadas a séries temporais epidemiológicas.
+    \end{itemize}
+    
+    \item \textbf{Identificação e Caracterização das Bases de Dados} (2 semanas)
+    \begin{itemize}
+        \item Mapeamento das fontes de dados oficiais (SINAN e INMET).
+        \item Análise da estrutura, formato e qualidade dos dados brutos.
+        \item Definição da estratégia de coleta e padronização.
+    \end{itemize}
+    
+    \item \textbf{Desenvolvimento do Pipeline de Engenharia de Dados} (3 semanas)
+    \begin{itemize}
+        \item Programação de scripts para download automatizado (API InfoDengue e arquivos INMET).
+        \item Implementação de rotinas de limpeza e tratamento de dados.
+        \item Criação do módulo de agregação temporal (diário para semanal).
+        \item Desenvolvimento do algoritmo de unificação (merge) das bases.
+    \end{itemize}
+    
+    \item \textbf{Análise Estatística Exploratória} (3 semanas)
+    \begin{itemize}
+        \item Geração de estatísticas descritivas e visualizações exploratórias.
+        \item Cálculo de correlações de Pearson e Spearman.
+        \item Implementação da análise de correlação cruzada (lags de 0 a 8 semanas).
+        \item Execução dos testes de causalidade de Granger.
+    \end{itemize}
+    
+    \item \textbf{Redação e Documentação} (2 semanas)
+    \begin{itemize}
+        \item Redação dos capítulos de Introdução, Revisão Bibliográfica e Metodologia.
+        \item Incorporação dos resultados preliminares e figuras geradas.
+        \item Revisão textual e formatação conforme normas ABNT.
+    \end{itemize}
+\end{enumerate}
+
+\textbf{Total estimado do TCC 1: 14 semanas}
+
+\section{Planejamento para o TCC 2}
+
+O TCC 2 focará na construção, treinamento e avaliação dos modelos preditivos. O cronograma previsto é:
+
+\begin{enumerate}
+    \item \textbf{Feature Engineering e Preparação dos Dados para Modelagem} (2 semanas)
+    \begin{itemize}
+        \item Criação explícita das variáveis de lag (chuva_lag_1, chuva_lag_2, etc.).
+        \item Normalização e padronização das variáveis numéricas.
+        \item Divisão dos dados em conjuntos de treino, validação e teste (respeitando ordem temporal).
+    \end{itemize}
+    
+    \item \textbf{Implementação do Modelo Baseline (SARIMA)} (2 semanas)
+    \begin{itemize}
+        \item Seleção automática de hiperparâmetros (p, d, q)(P, D, Q).
+        \item Treinamento do modelo e geração de previsões.
+        \item Avaliação inicial do desempenho.
+    \end{itemize}
+    
+    \item \textbf{Implementação e Otimização do XGBoost} (3 semanas)
+    \begin{itemize}
+        \item Configuração da estrutura de dados para o algoritmo.
+        \item Otimização de hiperparâmetros via Grid Search ou Randomized Search.
+        \item Treinamento e validação com Time Series Cross-Validation.
+        \item Análise da importância das features (Feature Importance).
+    \end{itemize}
+    
+    \item \textbf{Implementação e Otimização da Rede Neural LSTM} (4 semanas)
+    \begin{itemize}
+        \item Projeto da arquitetura (número de camadas, unidades de memória, dropout).
+        \item Preparação dos dados em formato de sequências temporais.
+        \item Treinamento com early stopping e monitoramento de overfitting.
+        \item Ajuste fino de hiperparâmetros (learning rate, batch size, epochs).
+    \end{itemize}
+    
+    \item \textbf{Comparação de Modelos e Análise de Resultados} (2 semanas)
+    \begin{itemize}
+        \item Cálculo das métricas de desempenho (RMSE, MAE) para todos os modelos.
+        \item Análise dos erros de previsão (resíduos).
+        \item Avaliação da capacidade de generalização (especialmente para o evento extremo de 2024).
+        \item Comparação crítica dos resultados e discussão dos trade-offs.
+    \end{itemize}
+    
+    \item \textbf{Redação Final e Apresentação} (3 semanas)
+    \begin{itemize}
+        \item Redação do capítulo de Resultados Finais e Discussão.
+        \item Elaboração das Conclusões e Trabalhos Futuros.
+        \item Preparação da apresentação para a banca examinadora.
+        \item Revisão final e formatação do documento completo.
+    \end{itemize}
+\end{enumerate}
+
+\textbf{Total estimado do TCC 2: 16 semanas}
+
+\section{Visão Geral do Projeto}
+
+O projeto completo (TCC 1 + TCC 2) está previsto para ser concluído em aproximadamente \textbf{30 semanas} (cerca de 7 a 8 meses), considerando dedicação parcial compatível com a carga horária acadêmica de um estudante de graduação.

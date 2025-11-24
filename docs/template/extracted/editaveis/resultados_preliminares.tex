@@ -1,62 +1,82 @@
 \chapter{Resultados Preliminares}
 \label{cap:resultados}
 
-Neste capítulo, apresentamos a análise detalhada dos dados consolidados de dengue e variáveis climáticas no Distrito Federal para o período de 2022 a 2024. A base de dados unificada compreende 156 semanas epidemiológicas contínuas, totalizando 463.560 casos notificados no período.
+Este capítulo apresenta os resultados da análise exploratória e estatística dos dados unificados de dengue e variáveis climáticas para o Distrito Federal no período de 2022 a 2024. A base de dados consolidada compreende 156 semanas epidemiológicas contínuas, sem lacunas temporais significativas, totalizando 463,560 casos notificados no triênio.
 
-\section{Análise Descritiva e Evolução Temporal}
+\section{Caracterização Descritiva da Série Temporal}
 
-O período analisado revela uma discrepância significativa na magnitude dos casos entre os anos. Enquanto 2022 e 2023 registraram, respectivamente, 85.346 e 64.897 casos acumulados, o ano de 2024 apresentou um cenário epidêmico explosivo, com 313.317 casos — um aumento superior a 360\% em relação ao ano anterior.
+A análise descritiva revela uma disparidade impressionante entre os anos estudados. Enquanto 2022 e 2023 apresentaram perfis epidemiológicos relativamente controlados, com médias semanais de 1,641 e 1,224 casos, respectivamente, o ano de 2024 caracterizou-se por uma epidemia de magnitude sem precedentes, com média semanal de 6,143 casos.
 
-O pico da série histórica ocorreu na semana epidemiológica iniciada em 18 de fevereiro de 2024, registrando 25.714 casos em apenas sete dias. Nesse momento crítico, as condições meteorológicas eram propícias à proliferação do vetor: umidade relativa média de 86,4\%, temperatura média de 21,6°C e precipitação acumulada de 27,6 mm.
+O comportamento sazonal é claramente observável. Os meses de maior incidência histórica concentram-se no primeiro trimestre do ano, com picos típicos em fevereiro, período que coincide com o auge da estação chuvosa no Cerrado. Esse padrão é consistente com a biologia do vetor, que requer água estagnada para completar seu ciclo de desenvolvimento.
 
-A Figura \ref{fig:linha_tempo} ilustra essa evolução temporal, destacando a sazonalidade e a magnitude do surto de 2024.
+\section{Evolução Temporal e Sazonalidade}
+
+A Figura \ref{fig:temporal} apresenta a série temporal completa de casos de dengue sobreposta à precipitação semanal acumulada. Observa-se uma correspondência visual entre períodos de maior volume pluviométrico e subsequentes picos de casos, porém com um deslocamento temporal (	extit{lag}).
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.95\textwidth]{figuras/linha_temporal_casos_chuva.png}
-    \caption{Série temporal de casos de dengue e precipitação (2022-2024), evidenciando o pico epidêmico em 2024.}
-    \label{fig:linha_tempo}
+    \includegraphics[width=0.95\textwidth]{figuras/evolucao_temporal_combinada.png}
+    \caption{Evolução temporal dos casos de dengue e precipitação no Distrito Federal (2022-2024). O eixo esquerdo representa os casos notificados e o eixo direito a precipitação em milímetros.}
+    \label{fig:temporal}
 \end{figure}
 
-A análise sazonal (Figura \ref{fig:sazonal}) confirma que os meses de fevereiro e março representam a janela crítica de transmissão no DF, com médias mensais de casos semanais alcançando 9.273 e 7.799, respectivamente. O período de baixa transmissão ocorre consistentemente entre julho e outubro.
+O evento extremo de 2024 é evidente: a semana epidemiológica iniciada em 18/02/2024 registrou o pico histórico de 25,714 casos em apenas sete dias. Nesse momento crítico, as condições climáticas eram favoráveis à proliferação do vetor: umidade relativa do ar de 86.3\%, temperatura média de 21.6°C e precipitação acumulada de 55.2 mm.
+
+\section{Decomposição STL e Componentes Temporais}
+
+A decomposição STL (Seasonal and Trend decomposition using Loess) permite isolar três componentes fundamentais da série temporal: a tendência de longo prazo, a sazonalidade recorrente e o resíduo (ruído aleatório).
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{figuras/tendencia_anual_sazonal.png}
-    \caption{Sazonalidade média: Casos por semana epidemiológica (pico concentrado nas semanas 07-12).}
-    \label{fig:sazonal}
+    \includegraphics[width=0.9\textwidth]{figuras/decomposicao_stl_casos.png}
+    \caption{Decomposição STL da série temporal de casos de dengue, revelando a componente de tendência (aumento geral), sazonalidade (ciclos anuais) e resíduos.}
+    \label{fig:stl}
 \end{figure}
 
-\section{Correlações e Defasagem Temporal (Lags)}
+A análise da componente sazonal confirma que o padrão cíclico anual é robusto e previsível, com picos recorrentes concentrados entre as semanas epidemiológicas 6 e 14 (fevereiro a abril). A componente de tendência revela um crescimento de fundo, possivelmente relacionado à expansão urbana e ao aumento da população suscetível. Os resíduos mostram variabilidade não explicada pelos componentes sazonal e tendência, justificando a necessidade de incorporar variáveis climáticas externas na modelagem preditiva.
 
-A análise de correlação de Pearson revelou que a **Umidade Relativa Média** é a variável climática com maior correlação linear imediata com o número de casos ($r = 0,37$). A temperatura média e a chuva apresentaram correlações imediatas mais fracas ($r = 0,11$ e $r = 0,09$, respectivamente). Curiosamente, a velocidade do vento apresentou uma correlação negativa moderada ($r = -0,22$), sugerindo que ventos mais fortes podem dificultar a dispersão ou atividade de voo do mosquito \textit{Aedes aegypti}.
+\section{Análise de Correlação}
+
+\subsection{Correlação Linear (Pearson e Spearman)}
+
+A análise de correlação linear foi conduzida para quantificar a força da associação entre as variáveis climáticas e o número de casos semanais. A Tabela \ref{tab:correlacao} apresenta os coeficientes de Pearson e Spearman calculados.
+
+A variável climática que apresentou a maior correlação linear imediata com os casos foi a \textbf{Umidade}, com um coeficiente de Pearson de 0.3731. O coeficiente de Spearman, que mede associações monotônicas (não necessariamente lineares), foi ainda mais elevado para essa variável, sugerindo uma relação robusta e não-linear subjacente.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{figuras/heatmap_correlacao.png}
-    \caption{Matriz de correlação de Pearson entre variáveis climáticas e casos de dengue.}
+    \includegraphics[width=0.8\textwidth]{figuras/heatmap_correlacao_oficial.png}
+    \caption{Matriz de correlação de Pearson entre todas as variáveis do estudo. Valores próximos de +1 indicam correlação positiva forte; valores próximos de -1, correlação negativa forte; valores próximos de 0, ausência de correlação linear.}
     \label{fig:heatmap}
 \end{figure}
 
-\subsection{O Efeito do Tempo (Lags)}
+\subsection{Correlação Cruzada e Defasagem Temporal}
 
-Um achado fundamental desta análise é a importância da defasagem temporal (\textit{lag}). Embora a correlação imediata da chuva seja baixa, a análise de correlação cruzada demonstrou que o impacto da precipitação nos casos de dengue é crescente ao longo do tempo, atingindo seu pico cerca de 7 a 8 semanas após o evento chuvoso.
-
-\begin{itemize}
-    \item \textbf{Lag 0 (Semana atual):} Correlação Chuva x Casos = 0,09
-    \item \textbf{Lag 4 (1 mês depois):} Correlação Chuva x Casos = 0,25
-    \item \textbf{Lag 7 (quase 2 meses):} Correlação Chuva x Casos = 0,27
-\end{itemize}
-
-Esse comportamento é biologicamente consistente com o ciclo de vida do vetor (eclosão dos ovos, desenvolvimento larvário) e o período de incubação viral extrínseco, reforçando a necessidade de utilizar variáveis defasadas nos modelos preditivos.
-
-\section{Distribuição das Variáveis Climáticas}
-
-As condições ambientais do Distrito Federal durante o período de estudo variaram consideravelmente, como mostra o boxplot abaixo. A temperatura média manteve-se amena (mediana $\approx 21,6$°C), mas a umidade apresentou grande amplitude, variando de médias semanais desérticas ($\approx 26\%$) a saturadas ($\approx 88\%$), característica típica do Cerrado que influencia diretamente a sobrevivência do vetor.
+A análise de correlação cruzada foi fundamental para desvendar o fenômeno de defasagem temporal. Calculou-se a correlação entre a série de casos ($Y_t$) e as séries climáticas defasadas de $k$ semanas ($X_{t-k}$), para $k = 0, 1, ..., 8$.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{figuras/boxplot_climatico.png}
-    \caption{Distribuição das variáveis climáticas (2022-2024).}
-    \label{fig:boxplot}
+    \includegraphics[width=0.8\textwidth]{figuras/analise_lags_crosscorr.png}
+    \caption{Função de Correlação Cruzada: Correlação entre casos de dengue e precipitação defasada de 0 a 8 semanas. O aumento gradual da correlação com o aumento do lag sugere que a chuva leva tempo para manifestar seu efeito biológico sobre a população de mosquitos.}
+    \label{fig:lags}
 \end{figure}
+
+Os resultados são reveladores: enquanto a correlação imediata (lag 0) entre chuva e casos é relativamente baixa ($r = 0.09$), a correlação aumenta progressivamente ao longo do tempo, atingindo seu pico aproximadamente 7 a 8 semanas após o evento chuvoso ($r \approx 0.27$). Esse padrão é biologicamente consistente com o ciclo de vida do mosquito: a chuva cria os criadouros, os ovos eclodem, as larvas se desenvolvem, e os mosquitos adultos emergem semanas depois, iniciando o ciclo de transmissão.
+
+\section{Teste de Causalidade de Granger}
+
+Para validar estatisticamente a precedência temporal e a causalidade no sentido de Granger, foram realizados testes formais de hipótese. Os resultados indicam que a \textbf{precipitação} apresenta evidência estatística de causalidade de Granger nos lags 1 e 2 semanas (valor-p < 0.05), confirmando que as chuvas antecedem e melhoram a previsão dos casos futuros.
+
+Por outro lado, a umidade relativa, embora apresente a maior correlação linear imediata, não demonstrou causalidade de Granger estatisticamente significativa nos lags testados (1 a 4 semanas), sugerindo que sua relação com os casos pode ser mais indireta ou mediada por outras variáveis não observadas.
+
+\section{Implicações para a Modelagem}
+
+Os achados desta análise preliminar fornecem direcionamentos claros para a etapa de modelagem preditiva (TCC 2):
+
+\begin{enumerate}
+    \item \textbf{Variáveis Clave:} A precipitação e a umidade devem ser incorporadas aos modelos, mas com tratamentos diferentes: a chuva com defasagens de 1-2 semanas (devido ao Granger), e a umidade de forma mais imediata ou como variável de contexto.
+    
+    \item \textbf{Engenharia de Atributos:} Será necessário criar variáveis de lag explícitas (ex: `chuva_lag_1`, `chuva_lag_2`) para alimentar os algoritmos de Machine Learning.
+    
+    \item \textbf{Sazonalidade:} A decomposição STL confirma que os modelos devem ser capazes de capturar a sazonalidade anual, seja através de componentes sazonais explícitos (SARIMA) ou através de atributos temporais cíclicos (ML).
+\end{enumerate}
